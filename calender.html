@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta charset="utf-8">
-	<title>calender</title>
+	<title>calendar</title>
 	<style type="text/css">
 body{
 	margin: 0;
 	padding: 0;
 }
-	.calender{
+	.calendar{
 		border: 5px solid blue;
 		width: 100%;
 		height: 100%;
@@ -57,7 +57,7 @@ body{
 
 			
 		}
-		#calender_date{
+		#calendar_date{
 			border: 2px solid red;
 			font-size: 15px;
 			text-align: center;
@@ -94,16 +94,16 @@ body{
 	</style>
 </head>
 <body>
-<div class="calender">
+<div class="calendar">
 <img id="season" style="width: 100%;height: 100%;">
 	<div class="date1">
 	<div class="blank">
 	<div class="select">
-		<select id="chooseyear" onchange="changecalender('chooseyear','choosemonth')">
+		<select id="chooseyear" onchange="changecalendar('chooseyear','choosemonth')">
 		
 		</select>
 		<span>年</span>
-		<select id="choosemonth" onchange="changecalender('chooseyear','choosemonth')">
+		<select id="choosemonth" onchange="changecalendar('chooseyear','choosemonth')">
 		
 		</select>
 		<span>月</span>
@@ -122,7 +122,7 @@ body{
 			</tr>
 			</tbody>
 		</table>
-		<table id="calender_date"></table>
+		<table id="calendar_date"></table>
 		</div>
 	</div>
 </div>
@@ -150,7 +150,7 @@ alert(parseInt(a.join(''),2));
 
 /*创建背景图函数
 function createBackground(season){
-	var img_id=document.getElementById("calender");
+	var img_id=document.getElementById("calendar");
 	var img=document.createElement('img');
 	img.setAttribute("src","img/"+season+".jpg");
 	img.setAttribute("style","height:100%;width:100%;");
