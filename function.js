@@ -58,7 +58,7 @@ function reset(){
 }
 /*删除table的函数*/
 function deletTable(){
-	var delet_table=document.getElementById("calender_date");
+	var delet_table=document.getElementById("calendar_date");
 var table_child=delet_table.rows;
 var row_number=table_child.length;
 for(;row_number>0;row_number--){
@@ -68,7 +68,7 @@ for(;row_number>0;row_number--){
 }
 
 /*触发select更新table执行的函数*/
-function changecalender(year,month){
+function changecalendar(year,month){
 
 deletTable();
 var year_id=document.getElementById(year);
@@ -82,7 +82,7 @@ addDate(g_year,g_month);
 /*开始计算，更新table*/
 function addDate(g_year,g_month){
 	var diff_day,this_month_day,last_month_day;
-    var createdate=document.getElementById("calender_date");
+    var createdate=document.getElementById("calendar_date");
     this_month_day=caculateMonthDay(g_month,g_year);
     var all_day,left_day;
     diff_day=sumDay(g_year,g_month)%7;
@@ -412,7 +412,7 @@ function getLunarY_M_D(sum_day) {
 
 function getLunarYearInfo(lunar_year){
 	var inf=[];
-	var binary_year=lunar_calender[lunar_year-1900].toString(2).split("");
+	var binary_year=lunar_calendar[lunar_year-1900].toString(2).split("");
 	while(binary_year.length<17){
 		binary_year.unshift(0);
 	}
