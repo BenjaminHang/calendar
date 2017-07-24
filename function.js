@@ -73,8 +73,8 @@ function changecalendar(year,month){
 deletTable();
 var year_id=document.getElementById(year);
 var month_id=document.getElementById(month);
-var	g_year=year_id.options[year_id.options.selectedIndex].value;
-var g_month=month_id.options[month_id.options.selectedIndex].value;
+var	g_year=year_id.options[year_id.options.selectedIndex].value-0;
+var g_month=month_id.options[month_id.options.selectedIndex].value-0;
 changeImg(getSeason(g_month));
 addDate(g_year,g_month);
 }
@@ -151,7 +151,8 @@ function solarInf(solar_year,solar_month,row,column){
 	}else{
 		if((row*7+column+1)>all_day){
 			if(solar_month==12){
-				return [solar_year+1,solar_month=1,row*7+column+1-all_day];
+				
+				return [solar_year+1,1,row*7+column+1-all_day];
 			}else{
 				return [solar_year,solar_month+1,row*7+column+1-all_day];
 			}				 
@@ -497,10 +498,9 @@ function solarFestival(solar_year,solar_month,solar_day){
 /*由阳历确定阴历日期*/
 /*24节气判断*/
 function getSolarTerm(solar_year,solar_month,solar_day){
-	var n;
-	var sub_str=parseInt('0x'+solar_term[solar_year-1900].substr((solar_month-1)/2*5,5)).toString();
+	var sub_str=parseInt('0x'+solar_term[solar_year-1900].substr(parseInt((solar_month-1)/2)*5,5)).toString();
 	var sub_sub_str=[2];
-	if(solar_month%2){
+	if(solar_month%2==1){
 		sub_sub_str[0]=sub_str.substr(0,1);
 		sub_sub_str[1]=sub_str.substr(1,2);
 	}else{
@@ -519,11 +519,13 @@ function getSolarTerm(solar_year,solar_month,solar_day){
 function addInfo(solar_year,solar_month,row,column){
 	var lunar=solarTranLunar(solar_year,solar_month,row,column);
 	var solar=solarInf(solar_year,solar_month,row,column);
-	if(getSolarTerm(solar[0],solar[1],solar[2]))
-		return getSolarTerm(solar[0],solar[1],solar[2]);
+	
 	if(lunarFestival(lunar[0],lunar[1],lunar[2])){
 		return lunarFestival(lunar[0],lunar[1],lunar[2]);
 	}
+	if(getSolarTerm(solar[0],solar[1],solar[2]))
+		return getSolarTerm(solar[0],solar[1],solar[2]);
+	
 	if(solarFestival(solar[0],solar[1],solar[2])){
 		return solarFestival(solar[0],solar[1],solar[2]);
 	}
