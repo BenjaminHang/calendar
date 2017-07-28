@@ -7,78 +7,109 @@
 body{
 	margin: 0;
 	padding: 0;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed;
 }
+	
 	.calendar{
-		border: 5px solid blue;
+		
 		width: 100%;
 		height: 100%;
-		;
-		position:absolute;
-	}
-	.header{
+		
+		//border: 2px solid blue;
+		
+		
+	}	
+		.content_space{
 			border: 2px solid blue;
-			font-size: 20px;
-			text-align: center;
-			margin: auto;
-			position: absolute;
-			width: 90%;
-			height: 13%;
-			left: 5%;
-			top: 10%;
-			border-collapse: collapse;
-	}
-
-		.date1{
-			border: 3px solid blue;
 			font-size: 15px;
 			
-			margin: auto;
-			position: absolute;
-			width: 100%;
-			height: 60%;
-			top:20%;
+			margin: 20% auto;
+			//position: absolute;
+			width: 900px;
+			height: 525px;
+			
 			
 		}
 		.blank{
-			border: 1px solid blue;
-			margin:auto;
-			height:100%;
-			width: 44%;
-			left:28%;
-			position: absolute;
+		
+			margin:0;
+			height:525px;
+			width: 400px;
+			//left:28%;
+			//position: absolute;
+			float:left;
+			//overflow: auto;
+			padding: 0;
+			background: rgba(89,232,47,0.45);
+		}
+			.header{
+			
+			font-size: 20px;
+			text-align: center;
+			margin: 0;
+			
+			width: 380px;
+			height: 45px;
+			margin: 0 10px;
+			
+			border-collapse: collapse;
+		border-bottom: 2px solid rgba(140,102,233,1.00)
+	}
+		#space_left{
+			background: rgba(237,64,67,1.00);
+			width: 250px;
+			height:525px;
+			margin: 0;
+			float: left;
+			padding: 0;
+		}
+		#space_right{
+			text-align: center;
+			background: rgba(56,231,98,1.00);
+			width: 250px;
+			height:525px;
+			margin: 0;
+			float:left;
+			padding: 0;
+			
+			font-size: 18px;
 		}
 		.select{
+			border-top: 1px solid blue;
+			border-bottom: 1px solid blue;
+			width: 400px;
+			height: 28px;
 			
-			width: 90%;
-			height: 10%;
-			left: 5%;
-			position: absolute;
+			line-height: 26px;
 			font-size: 22px;
+			margin: 2px 0 0 0;
+			padding: 0;
 
 			
 		}
 		#calendar_date{
-			border: 2px solid red;
+			//border: 2px solid red;
 			font-size: 15px;
 			text-align: center;
-			margin: auto;
-			position: absolute;
-			width: 90%;
-			height: 77%;
-			left: 5%;
-			top: 23%;
+			margin: 0 10px;
+			
+			width: 380px;
+			height: 450px;
+			
 			border-collapse: collapse; 	
 			
 			table-layout: fixed;
 			overflow: hidden;
 			white-space: nowrap;
 		}
-		tr{
+		#calendar_date tr{
 				border-bottom: 1px solid red;
 				
 		}
 		.buttom{
-			border-bottom: 0px; 
+			border-bottom: 2px; 
 		}
 		.wenkend{
 			color: red;
@@ -87,26 +118,32 @@ body{
 			font-size: 4px;
 		}
 		#reset{
-			right:0%;
-			position: absolute;
-			top: 15%;
+			float: right;
+			line-height: 22px;
 		}
+		
 	</style>
 </head>
 <body>
+
+<!--<img id="season" style="width: 100%;height: 100%;float: left;z-index: -1">
+-->
 <div class="calendar">
-<img id="season" style="width: 100%;height: 100%;">
-	<div class="date1">
+
+	<div class="content_space">
+	<div id="space_left">
+		<p>hishdifhlsdf</p>
+	</div>
 	<div class="blank">
 	<div class="select">
 		<select id="chooseyear" onchange="changecalendar('chooseyear','choosemonth')">
 		
 		</select>
-		<span>年</span>
+		<span style="line-height: 30px">年</span>
 		<select id="choosemonth" onchange="changecalendar('chooseyear','choosemonth')">
 		
 		</select>
-		<span>月</span>
+		<span style="line-height: 30px">月</span>
 		<button id="reset" onclick="reset()">返回今天</button>
 	</div>
 		<table class="header">
@@ -124,6 +161,9 @@ body{
 		</table>
 		<table id="calendar_date"></table>
 		</div>
+		<div id="space_right">
+		
+		</div>
 	</div>
 </div>
 
@@ -137,6 +177,7 @@ body{
     createSelect();
 /*创建table中每个单元格内容*/
 addDate(now_time.getFullYear(),now_time.getMonth()+1);
+	createContent(now_time.getFullYear(),now_time.getMonth()+1,now_time.getDate());
 changeImg(getSeason(now_time.getMonth()+1));
 
 
