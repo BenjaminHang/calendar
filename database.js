@@ -109,7 +109,7 @@ lunar_festival["8-15"]="中秋节";
 lunar_festival["9-9"]="重阳节";
 lunar_festival["12-8"]="腊八节";
 lunar_festival["12-23"]="小年";
-/*除夕待定*/
+/*除夕单独计算*/
 var solar_festival=[];
 solar_festival["1-1"]="元旦";
 solar_festival["2-2"]="世界湿地日";
@@ -143,7 +143,7 @@ solar_festival["11-17"]="国际大学生节";
 solar_festival["12-1"]="世界艾滋病日";
 solar_festival["12-24"]="平安夜";
 solar_festival["12-25"]="圣诞节";
-/*母亲节、父亲节、感恩节待定*/
+/*母亲节、父亲节、感恩节单独计算*/
 
 var gan=['庚','辛','壬','癸','甲','乙','丙','丁','戊','己'];
 var zhi=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
