@@ -108,9 +108,15 @@ function createContent(solar_year,solar_month,solar_day){
 	right_p2Node.appendChild(document.createTextNode('\n'));
 	right_p2Node.appendChild(document.createTextNode(getGanZhi_Month(lunar_YMD[0],lunar_YMD[1])+" "+getGanZhi_Day(solar_year,solar_month,solar_day)));
 	right_p2Node.setAttribute("style","white-space:pre;border-bottom: 2px solid blue;");
+	var right_div2Node=document.createElement('div');
+	var right_p3Node=document.createElement('p');
+	right_p3Node.appendChild(document.createTextNode("宜"+"\t  "+"忌"));
+	right_p3Node.setAttribute("style","white-space:pre;font-size:40px;margin:0 auto;color: purple;padding:0;");
+	right_div2Node.appendChild(right_p3Node);
 	right_id.appendChild(right_pNode);
 	right_id.appendChild(right_divNode);
 	right_id.appendChild(right_p2Node);
+	right_id.appendChild(right_div2Node);
 }
 
 /*开始计算，更新table*/
