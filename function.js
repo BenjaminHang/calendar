@@ -10,7 +10,7 @@ function createOption(select_id,option_value){
 
 function createSelect(){
 		createOption("chooseyear",now_time.getFullYear());
-		for(var i=1901;i<2101;i++){
+		for(var i=1901;i<2100;i++){
 			createOption("chooseyear",i);
 		}
 		createOption("choosemonth",now_time.getMonth()+1)
@@ -126,10 +126,10 @@ function addDate(g_year,g_month){
     this_month_day=caculateMonthDay(g_month,g_year);
     var all_day,left_day;
     diff_day=sumDay(g_year,g_month)%7;
-	if(diff_day<5){
-		all_day=this_month_day+diff_day+2;
+	if(diff_day<6){
+		all_day=this_month_day+diff_day+1;
 	}else{
-		all_day=this_month_day-7+diff_day+2;
+		all_day=this_month_day-7+diff_day+1;
 	}
 	if(all_day%7==0){
 		left_day=all_day%7;
@@ -156,8 +156,19 @@ function addDate(g_year,g_month){
 			tdNode.onclick=function(){
 				
 				var selectNode=document.getElementsByTagName('select');
-				selectNode[0].options.selectedIndex=this.value[0]-1900;
-				selectNode[1].options.selectedIndex=this.value[1];
+				if(this.value[0]==1900){
+					selectNode[0].options.selectedIndex=1;
+					selectNode[1].options.selectedIndex=1;
+				}else{
+					if(this.value[0]==2100){
+						selectNode[0].options.selectedIndex=199;
+					    selectNode[1].options.selectedIndex=12;
+					}else{
+						selectNode[0].options.selectedIndex=this.value[0]-1900;
+				        selectNode[1].options.selectedIndex=this.value[1];
+					}
+				}
+				
 				changecalendar('chooseyear','choosemonth');
 				
 				var t=document.getElementsByTagName('td');
@@ -200,10 +211,10 @@ function solarInf(solar_year,solar_month,row,column){
     last_month_day=caculateMonthDay(solar_month-1,solar_year); 
     var all_day,left_day;
     diff_day=sumDay(solar_year,solar_month)%7;
-	if(diff_day<5){
-		all_day=this_month_day+diff_day+2;
+	if(diff_day<6){
+		all_day=this_month_day+diff_day+1;
 	}else{
-		all_day=this_month_day-7+diff_day+2;
+		all_day=this_month_day-7+diff_day+1;
 	}
 	if(all_day%7==0){
 		left_day=all_day%7;
@@ -211,10 +222,10 @@ function solarInf(solar_year,solar_month,row,column){
 		left_day=7-all_day%7;
 	}
 
-	if(diff_day<5){
-		log_judge=diff_day+2;
+	if(diff_day<6){
+		log_judge=diff_day+1;
 	}else{
-		log_judge=diff_day+2-7;
+		log_judge=diff_day+1-7;
 	}
 
 	if(row*7+column<log_judge){
@@ -306,10 +317,10 @@ function solarDayToWeek(solar_year,solar_month,solar_day){
 	var week,sum,diff;
 	sum=sumDay(solar_year,solar_month)+solar_day-1;
 	diff=sum%7;
-	if(diff<5){
-		return diff+2;
+	if(diff<6){
+		return diff+1;
 	}else{
-		return diff+2-7;
+		return diff+1-7;
 	}
 }
 /*阳历日期与阴历t日期转换*/
@@ -338,10 +349,10 @@ function solarTranLunar(solar_year,solar_month,row,column){
     var last_solarmonth_day=caculateMonthDay(solar_month-1,solar_year); 
     var all_day,left_day,sum_day;
     diff_day=sumDay(solar_year,solar_month)%7;
-    if(diff_day<5){
-		all_day=this_solarmonth_day+diff_day+2;
+    if(diff_day<6){
+		all_day=this_solarmonth_day+diff_day+1;
 	}else{
-		all_day=this_solarmonth_day-7+diff_day+2;
+		all_day=this_solarmonth_day-7+diff_day+1;
 	}
 	if(all_day%7==0){
 		left_day=all_day%7;
@@ -350,10 +361,10 @@ function solarTranLunar(solar_year,solar_month,row,column){
 	}
     sum_day=all_day+left_day;
     var log_judge;
-    if(diff_day<5){
-    	log_judge=diff_day+2;
+    if(diff_day<6){
+    	log_judge=diff_day+1;
     }else{
-    	log_judge=diff_day+2-7;
+    	log_judge=diff_day+1-7;
     }
 	if(lunar_YMD[2]>log_judge){
 			front_day=this_month_day-lunar_YMD[2]+1+log_judge;
@@ -438,7 +449,7 @@ function sumDay(g_year,g_month){
 			sum_day+=solar_month_day[j-1];
 		}
 	}
-	for(var i=1901;i<g_year;i++){
+	for(var i=1900;i<g_year;i++){
 		if(intercalaryYear(i)){
 			sum_day+=366;
 		}else{
@@ -450,8 +461,8 @@ function sumDay(g_year,g_month){
 function getLunarY_M_D(sum_day) {
 	var inf=[];
 	var lunar_Y_M_D=[];
-	var sum_lunar_day=49;//1901.01.01阴历与1901.01.01阳历差
-	var lunar_year=1900;
+	var sum_lunar_day=30;//1900.01.01阴历与1900.01.01阳历差
+	var lunar_year=1899;
 	var lunar_month;
 	var lastdata;//记录sum_lunar_day上个状态数据
 	while(sum_lunar_day<=sum_day){
@@ -464,13 +475,10 @@ function getLunarY_M_D(sum_day) {
 
 
 	inf=getLunarYearInfo(lunar_Y_M_D[0]);
-	if(lunar_year==1900){
-		sum_lunar_day=19;//1901.01.01阳历与1900.12.01阴历差
-		lunar_month=11;
-	}else{
+	
 		sum_lunar_day=lastdata;
 		lunar_month=0;
-	}
+	
 		while(sum_lunar_day<=sum_day){
 			if(inf[13]!=lunar_month||lunar_month==0){
 				if(lunar_month>100){
@@ -494,12 +502,9 @@ function getLunarY_M_D(sum_day) {
 			}
 		}
 		lunar_Y_M_D[1]=lunar_month;//得到month
-	    if(lunar_Y_M_D[0]==1900&lunar_Y_M_D[1]==11){
-	    	lunar_Y_M_D[2]=11;
-	    }else{
+	    
 	    	lunar_Y_M_D[2]=sum_day-lastdata+1;
-	    }
-	 
+	    	 
 	return lunar_Y_M_D;//lunar_year_month_date	
 }
 
