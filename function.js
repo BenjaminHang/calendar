@@ -185,8 +185,6 @@ function addDate(g_year,g_month){
 					}
 				}
 				}
-				
-				
 				createContent(this.value[0],this.value[1],this.value[2]);
 				
 				
@@ -645,5 +643,35 @@ function addInfo(solar_year,solar_month,row,column){
 	}
 	return lunarNum(lunar[1],lunar[2]);
 }
-	
 
+/*Ajax数据交互
+     1.创建ajax对象
+	 2.打开数据通道（url地址及需要提供的参数）
+*/
+/*function getJson(solar_month,solar_day){
+	var xmlHttp = new XMLHttpRequest();//创建对象
+	var url = 'http://api.juheapi.com/japi/toh';
+	var sendData = {
+		key:'9a72de9e3ac2a16b5f0d9a9af219d1a9',
+		v:'1.0',
+		month:solar_month,
+		day:solar_day
+	}
+	var strArr = [];
+	var str;
+	for(var key in sendData){
+		strArr.push(key+'='+sendData[key]);
+		str=strArr.join('&');
+	}
+	
+	//xmlHttp.open('GET',url+'?'+str,true);
+	
+	//xmlHttp.send(null);
+	xmlHttp.onreadryStatechange = function(){
+		alert(1);
+		if(xmlHttp.readryState==4&xmlHttp.status == 200){
+			var result = JSON.parse(xmlHttp.response);
+		}
+	}
+}
+*/

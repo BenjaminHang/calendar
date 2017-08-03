@@ -172,16 +172,22 @@ body{
 
 <script type="text/javascript" src="function.js"></script>
 <script type="text/javascript" src="database.js"></script>
-<script type="text/javascript">
+
+function dosomething(data){
+		alert(1);
+	}
+
+<script type="text/javascript" src="http://api.juheapi.com/japi/toh?key=9a72de9e3ac2a16b5f0d9a9af219d1a9&v=1.0&month=1&day=1&callback=dosomething">
+	
 
 		/*创建select中option*/
     /*创建Date数据，方便获取系统Date*/
     createSelect();
 /*创建table中每个单元格内容*/
 addDate(now_time.getFullYear(),now_time.getMonth()+1);
-	createContent(now_time.getFullYear(),now_time.getMonth()+1,now_time.getDate());
+createContent(now_time.getFullYear(),now_time.getMonth()+1,now_time.getDate());
 changeImg(getSeason(now_time.getMonth()+1));
-
+console.log(getJson(1,1));
 
 
 
