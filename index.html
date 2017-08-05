@@ -55,37 +55,16 @@
 <script type="text/javascript">
 
 	
-
+(function(){
 		/*创建select中option*/
     /*创建Date数据，方便获取系统Date*/
+	var data = Data();
 createSelect();
 /*创建table中每个单元格内容*/
-addDate(now_time.getFullYear(),now_time.getMonth()+1);
-createContent(now_time.getFullYear(),now_time.getMonth()+1,now_time.getDate());
-changeImg(getSeason(now_time.getMonth()+1));
-
-
-
-
-/*创建背景图片*/
-
-/*创建背景图函数
-function createBackground(season){
-	var img_id=document.getElementById("calendar");
-	var img=document.createElement('img');
-	img.setAttribute("src","img/"+season+".jpg");
-	img.setAttribute("style","height:100%;width:100%;");
-	img.setAttribute("id","season");
-	alert(img.id);
-	img_id.appendChild(img);
-}*/
-
-/*.....................*/
-
-
-
-
-
+addDate(data.now_time.getFullYear(),data.now_time.getMonth()+1);
+createContent(data.now_time.getFullYear(),data.now_time.getMonth()+1,data.now_time.getDate());
+changeImg(getSeason(data.now_time.getMonth()+1));
+})();
 
 </script>
 

@@ -1,4 +1,6 @@
 /*创建select的函数*/
+
+
 function createOption(select_id,option_value){
 	var chyear=document.getElementById(select_id);
 		var option=document.createElement('option');
@@ -9,11 +11,12 @@ function createOption(select_id,option_value){
 }
 
 function createSelect(){
-		createOption("chooseyear",now_time.getFullYear());
+	var data = Data();
+		createOption("chooseyear",data.now_time.getFullYear());
 		for(var i=1901;i<2100;i++){
 			createOption("chooseyear",i);
 		}
-		createOption("choosemonth",now_time.getMonth()+1)
+		createOption("choosemonth",data.now_time.getMonth()+1)
 		for(var i=1;i<=12;i++){
 			createOption("choosemonth",i);
 		}
@@ -50,12 +53,13 @@ function changeImg(season){
 
 /*回到今天按钮函数*/
 function reset(){
+	var data = Data();
 	deletTable();
-	addDate(now_time.getFullYear(),now_time.getMonth()+1);
+	addDate(data.now_time.getFullYear(),data.now_time.getMonth()+1);
 	deletSelect();
 	createSelect();
-	changeImg(getSeason(now_time.getMonth()+1));
-	createContent(now_time.getFullYear(),now_time.getMonth()+1,now_time.getDate());
+	changeImg(getSeason(data.now_time.getMonth()+1));
+	createContent(data.now_time.getFullYear(),data.now_time.getMonth()+1,data.now_time.getDate());
 }
 /*删除table的函数*/
 function deletTable(){
@@ -82,14 +86,14 @@ addDate(g_year,g_month);
 
 /*添加left和right内容*/
 function createContent(solar_year,solar_month,solar_day){
-	
+	var data = Data();
 	var right_id=document.getElementById("space_right");
 	right_id.innerHTML='';
 	var right_pNode=document.createElement('p');
 	var week_name;
 	var week=solarDayToWeek(solar_year,solar_month,solar_day);
 	var lunar_YMD=solarTransformLunar(solar_year,solar_month,solar_day);
-	week_name=num_name[week];
+	week_name=data.num_name[week];
 	if(solar_day<10)
 		solar_day="0"+solar_day;
 	if(solar_month<10)
@@ -121,6 +125,7 @@ function createContent(solar_year,solar_month,solar_day){
 
 /*开始计算，更新table*/
 function addDate(g_year,g_month){
+	var data = Data();
 	var diff_day,this_month_day,last_month_day;
     var createdate=document.getElementById("calendar_date");
     this_month_day=caculateMonthDay(g_month,g_year);
@@ -177,7 +182,7 @@ function addDate(g_year,g_month){
 				if(t[k].value[0]==this.value[0]&t[k].value[1]==this.value[1]&t[k].value[2]==this.value[2]){
 						t[k].setAttribute('style',"background: rgba(237,64,67,0.55);white-space:nowrap;text-overflow:ellipsis;overflow:hidden;");
 					}else{	
-				if(t[k].value[0]!=(now_time.getFullYear())||t[k].value[1]!=(now_time.getMonth()+1)||t[k].value[2]!=(now_time.getDate())){
+				if(t[k].value[0]!=(data.now_time.getFullYear())||t[k].value[1]!=(data.now_time.getMonth()+1)||t[k].value[2]!=(data.now_time.getDate())){
 						t[k].setAttribute('style',"white-space:nowrap;text-overflow:ellipsis;overflow:hidden;");
 					}else{
 						t[k].setAttribute("style","background: rgba(237,64,67,1.00);white-space:nowrap;text-overflow:ellipsis;overflow:hidden;");
@@ -192,7 +197,7 @@ function addDate(g_year,g_month){
 		    if(j==0||j==6){
 		    	tdNode.setAttribute("class","wenkend");
 		    }
-			if(solar[0]==now_time.getFullYear()&solar[1]==now_time.getMonth()+1&solar[2]==now_time.getDate()){
+			if(solar[0]==data.now_time.getFullYear()&solar[1]==data.now_time.getMonth()+1&solar[2]==data.now_time.getDate()){
 			   
 				tdNode.setAttribute("style","background: rgba(237,64,67,1.00);white-space:nowrap;text-overflow:ellipsis;overflow:hidden;");
 			}
@@ -414,13 +419,14 @@ function solarTranLunar(solar_year,solar_month,row,column){
 
 /*判断本月几天*/
 function caculateMonthDay(month,year){
+	var data = Data();
 	if(month==2&intercalaryYear(year)){
-		return solar_month_day[1]+1;
+		return data.solar_month_day[1]+1;
 	}else{
 		if(month==0){
-			return solar_month_day[11];
+			return data.solar_month_day[11];
 		}else{
-			return solar_month_day[month-1];
+			return data.solar_month_day[month-1];
 		}
 	}
 }
@@ -439,12 +445,13 @@ function intercalaryYear(year){
 }
 /*日期与星期几关联*/
 function sumDay(g_year,g_month){
+	var data = Data();
 	var sum_day=0;
 	for(var j=1;j<g_month;j++){
 		if(j==2&intercalaryYear(g_year)){
-			sum_day=sum_day+solar_month_day[j-1]+1;
+			sum_day=sum_day+data.solar_month_day[j-1]+1;
 		}else{
-			sum_day+=solar_month_day[j-1];
+			sum_day+=data.solar_month_day[j-1];
 		}
 	}
 	for(var i=1900;i<g_year;i++){
@@ -507,8 +514,9 @@ function getLunarY_M_D(sum_day) {
 }
 
 function getLunarYearInfo(lunar_year){
+	var data = Data();
 	var inf=[];
-	var binary_year=lunar_calendar[lunar_year-1900].toString(2).split("");
+	var binary_year=data.lunar_calendar[lunar_year-1900].toString(2).split("");
 	while(binary_year.length<17){
 		binary_year.unshift(0);
 	}
@@ -545,6 +553,7 @@ function sumLunarYearDay(lunar_year){
 }
 /*阴历表示*/
 function lunarMonthName(lunar_month){
+	var data = Data();
 	var headWord;
 	if(lunar_month>100){
 		headWord="闰";
@@ -558,18 +567,18 @@ function lunarMonthName(lunar_month){
 		return headWord+"冬";
 	if(lunar_month==12)
 		return headWord+"腊";
-	return headWord+num_name[lunar_month];
+	return headWord+data.num_name[lunar_month];
 }
 function lunarDayName(lunar_day){
-	
+	var data = Data();
 		if(lunar_day<11){
-			return "初"+num_name[lunar_day];
+			return "初"+data.num_name[lunar_day];
 		}if(lunar_day>10&lunar_day<20){
-			return "十"+num_name[lunar_day-10];
+			return "十"+data.num_name[lunar_day-10];
 		}if(lunar_day==20){
 			return "二十";
 		}if(lunar_day>20&lunar_day<30){
-			return "廿"+num_name[lunar_day-20];
+			return "廿"+data.num_name[lunar_day-20];
 		}if(lunar_day==30){
 			return "三十";
 		}
@@ -584,21 +593,24 @@ function lunarNum(lunar_month,lunar_day){
 }
 /*阴历节日*/
 function lunarFestival(lunar_year,lunar_month,lunar_day){
+	var data = Data();
 	if(lunar_month==12){
 		if(getLunarYearInfo(lunar_year)[12]==lunar_day-29){
 			return "除夕";
 		}
 	}
-	return lunar_festival[lunar_month+"-"+lunar_day];
+	return data.lunar_festival[lunar_month+"-"+lunar_day];
 }
 /*阳历节日*/
 function solarFestival(solar_year,solar_month,solar_day){
-	return solar_festival[solar_month+"-"+solar_day];
+	var data = Data();
+	return data.solar_festival[solar_month+"-"+solar_day];
 }
 /*由阳历确定阴历日期*/
 /*24节气判断*/
 function getSolarTerm(solar_year,solar_month,solar_day){
-	var sub_str=parseInt('0x'+solar_term[solar_year-1900].substr(parseInt((solar_month-1)/2)*5,5)).toString();
+	var data = Data();
+	var sub_str=parseInt('0x'+data.solar_term[solar_year-1900].substr(parseInt((solar_month-1)/2)*5,5)).toString();
 	var sub_sub_str=[2];
 	if(solar_month%2==1){
 		sub_sub_str[0]=sub_str.substr(0,1);
@@ -608,24 +620,27 @@ function getSolarTerm(solar_year,solar_month,solar_day){
 		sub_sub_str[1]=sub_str.substr(4,2);
 	}
 	if(sub_sub_str[0]==solar_day){
-		return solar_term_name[solar_month*2-2];
+		return data.solar_term_name[solar_month*2-2];
 	}
 	if(sub_sub_str[1]==solar_day){
-		return solar_term_name[solar_month*2-1];
+		return data.solar_term_name[solar_month*2-1];
 	}
 	return 0;
 }
 /*得到干支*/
 function getGanZhi_Year(lunar_year){
-	return gan[(lunar_year-1900)%10]+zhi[(lunar_year-1900)%12]+'年'+' '+'【'+animal[(lunar_year-1900)%12]+'】'+'年';
+	var data = Data();
+	return data.gan[(lunar_year-1900)%10]+data.zhi[(lunar_year-1900)%12]+'年'+' '+'【'+data.animal[(lunar_year-1900)%12]+'】'+'年';
 }
 function getGanZhi_Month(lunar_year,lunar_month){
+	var data = Data();
         if(lunar_month>100)
 			lunar_month=lunar_month-100;
-		return gan[(lunar_month+7+2*((lunar_year-1900)%5))%10]+zhi[(lunar_month+1)%12]+'月';	
+		return data.gan[(lunar_month+7+2*((lunar_year-1900)%5))%10]+data.zhi[(lunar_month+1)%12]+'月';	
 }
 function getGanZhi_Day(solar_year,solar_month,solar_day){
-	return gan[((sumDay(solar_year,solar_month)+solar_day-1)%10+9)%10]+zhi[((sumDay(solar_year,solar_month)+solar_day-1)%12+3)%12]+'日';
+	var data = Data();
+	return data.gan[((sumDay(solar_year,solar_month)+solar_day-1)%10+9)%10]+data.zhi[((sumDay(solar_year,solar_month)+solar_day-1)%12+3)%12]+'日';
 }
 /*得到关于日期额外信息：阴历、节日、节气*/
 function addInfo(solar_year,solar_month,row,column){
