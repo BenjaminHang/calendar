@@ -45,7 +45,7 @@ if(month>2&month<6){
 
 function changeImg(season){
 	var img=document.getElementsByTagName('body')[0];
-	img.setAttribute("style","background-image:url('img/"+season+".jpg');");
+	img.setAttribute("style","background:url('img/"+season+".jpg') no-repeat fixed;background-size:100% 100%;");
 }
 
 /*回到今天按钮函数*/
